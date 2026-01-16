@@ -9,19 +9,28 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #050505; /* Dark background for space effect */
+    background: #000;
     background-image: url(https://i.pinimg.com/736x/76/76/2b/76762b716484fe11f49f459b7741763c.jpg);
     background-size: cover;
     overflow: hidden;
-    perspective: 1000px; /* Gives depth to the 3D scene */
+    /* Added perspective for 3D depth */
+    perspective: 2000px;
 }
 
 .box {
     position: relative;
-    width: 200px;
-    height: 300px;
+    /* Responsive sizing using vw */
+    width: 25vw; 
+    max-width: 200px;
+    height: 35vw;
+    max-height: 300px;
     transform-style: preserve-3d;
-    animation: animate 20s linear infinite;
+    animation: animate 25s linear infinite;
+}
+
+/* Pause animation on hover */
+.box:hover {
+    animation-play-state: paused;
 }
 
 .box span {
@@ -32,9 +41,16 @@ body {
     height: 100%;
     transform-origin: center;
     transform-style: preserve-3d;
-    /* 360 degrees / 5 images = 72 degrees per image */
-    transform: rotateY(calc(var(--i) * 72deg)) translateZ(300px);
-    -webkit-box-reflect: below 0px linear-gradient(transparent, transparent, #0004);
+    /* Automatically calculate angle: 360 / total images (--m) */
+    transform: rotateY(calc(var(--i) * (360deg / var(--m)))) translateZ(35vw);
+    -webkit-box-reflect: below 2px linear-gradient(transparent, transparent, #0004);
+}
+
+/* Adjust translateZ for smaller screens to keep images from flying off-screen */
+@media (max-width: 768px) {
+    .box span {
+        transform: rotateY(calc(var(--i) * (360deg / var(--m)))) translateZ(45vw);
+    }
 }
 
 .box span img {
@@ -44,7 +60,8 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
 @keyframes animate {
