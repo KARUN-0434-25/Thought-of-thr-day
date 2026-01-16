@@ -3,7 +3,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
     display: flex;
     justify-content: center;
@@ -17,7 +16,6 @@ body {
     /* Added perspective for 3D depth */
     perspective: 2000px;
 }
-
 .box {
     position: relative;
     /* Responsive sizing using vw */
@@ -28,12 +26,10 @@ body {
     transform-style: preserve-3d;
     animation: animate 25s linear infinite;
 }
-
 /* Pause animation on hover */
 .box:hover {
     animation-play-state: paused;
 }
-
 .box span {
     position: absolute;
     top: 0;
@@ -46,14 +42,6 @@ body {
     transform: rotateY(calc(var(--i) * (360deg / var(--m)))) translateZ(35vw);
     -webkit-box-reflect: below 2px linear-gradient(transparent, transparent, #0004);
 }
-
-/* Adjust translateZ for smaller screens to keep images from flying off-screen */
-@media (max-width: 768px) {
-    .box span {
-        transform: rotateY(calc(var(--i) * (360deg / var(--m)))) translateZ(45vw);
-    }
-}
-
 .box span img {
     position: absolute;
     top: 0;
@@ -64,7 +52,12 @@ body {
     border-radius: 8px;
     border: 1px solid rgba(255,255,255,0.1);
 }
-
+/* Adjust translateZ for smaller screens to keep images from flying off-screen */
+@media (max-width: 768px) {
+    .box span {
+        transform: rotateY(calc(var(--i) * (360deg / var(--m)))) translateZ(45vw);
+    }
+}
 @keyframes animate {
     0% {
         transform: rotateY(0deg);
